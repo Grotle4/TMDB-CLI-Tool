@@ -1,11 +1,19 @@
 import argparse
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+api_key = os.getenv("API_KEY")
 
 parser = argparse.ArgumentParser(description= "Will call Api to get movie information")
 
 parser.add_argument("-t", "--type", type=str, required=True,  help= "Will retrieve type of movie information")
 
 args = parser.parse_args()
+
+
+
 
 def process_data(type, response_data):
     match type:
@@ -23,7 +31,7 @@ def process_data(type, response_data):
        
 
 
-def process_args(args):
+def process_args(args, api_key):
     if args.type:
         try:
             match args.type:
@@ -31,12 +39,11 @@ def process_args(args):
                     url = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1"
 
                     headers = {
-                        "accept": "application/json",
-                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4OTNjNGZiOWI4MTZhNWM1MTYwNGI5ODg2ZjczOTU0OCIsIm5iZiI6MTc1OTU0NDM1My43NTksInN1YiI6IjY4ZTA4NDIxMjdkMmNhYTNiZTI1YTg3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FKp9qSBT0H3GAUa2kDJQ7oiCoDN_EzkCXPfR3rF0DH8"
+                        "accept": "application/json", #Create env variable for more secure API key access
+                        "Authorization": "Bearer " + api_key
                     }
 
                     response = requests.get(url, headers=headers)
-
                     response_data = response.json()
                     process_data("playing", response_data)
 
@@ -45,7 +52,7 @@ def process_args(args):
 
                     headers = {
                         "accept": "application/json",
-                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4OTNjNGZiOWI4MTZhNWM1MTYwNGI5ODg2ZjczOTU0OCIsIm5iZiI6MTc1OTU0NDM1My43NTksInN1YiI6IjY4ZTA4NDIxMjdkMmNhYTNiZTI1YTg3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FKp9qSBT0H3GAUa2kDJQ7oiCoDN_EzkCXPfR3rF0DH8"
+                        "Authorization": "Bearer "  + api_key
                     }
 
                     response = requests.get(url, headers=headers)
@@ -57,7 +64,7 @@ def process_args(args):
 
                     headers = {
                         "accept": "application/json",
-                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4OTNjNGZiOWI4MTZhNWM1MTYwNGI5ODg2ZjczOTU0OCIsIm5iZiI6MTc1OTU0NDM1My43NTksInN1YiI6IjY4ZTA4NDIxMjdkMmNhYTNiZTI1YTg3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FKp9qSBT0H3GAUa2kDJQ7oiCoDN_EzkCXPfR3rF0DH8"
+                        "Authorization": "Bearer " + api_key
                     }
 
                     response = requests.get(url, headers=headers)
@@ -69,7 +76,7 @@ def process_args(args):
 
                     headers = {
                         "accept": "application/json",
-                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4OTNjNGZiOWI4MTZhNWM1MTYwNGI5ODg2ZjczOTU0OCIsIm5iZiI6MTc1OTU0NDM1My43NTksInN1YiI6IjY4ZTA4NDIxMjdkMmNhYTNiZTI1YTg3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FKp9qSBT0H3GAUa2kDJQ7oiCoDN_EzkCXPfR3rF0DH8"
+                        "Authorization": "Bearer "  + api_key
                     }
 
                     response = requests.get(url, headers=headers)
@@ -86,4 +93,4 @@ def process_args(args):
         except requests.exceptions.RequestException as err:
             print(f"An Unknown Error occurred: {repr(err)}")
 
-process_args(args)
+process_args(args, api_key)

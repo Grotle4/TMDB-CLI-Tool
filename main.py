@@ -28,6 +28,8 @@ def process_data(type, response_data):
         
     for idx2, page in enumerate(response_data["results"]):
         print(f"{idx2 + 1}: {page["original_title"]}")
+        print(f"Description: {page["overview"]}")
+        print("")
        
 
 

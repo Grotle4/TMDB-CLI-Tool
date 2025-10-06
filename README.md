@@ -2,6 +2,7 @@
 
 A simple Python command-line tool that retrieves and displays categorized movie information from **The Movie Database (TMDB)** API.  
 The app fetches data such as **Now Playing**, **Popular**, **Top Rated**, and **Upcoming** movies, along with their **titles** and **descriptions**.
+Part of project for Roadmap.sh: https://roadmap.sh/projects/tmdb-cli
 
 ---
 
